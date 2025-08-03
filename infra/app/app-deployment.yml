@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: project-service
+  namespace: projectmanagement
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: project-service
+  template:
+    metadata:
+      labels:
+        app: project-service
+    spec:
+      containers:
+        - name: project-service
+          image: ujjwalraghuvanshi1212/project-service:latest
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:  # Minimum guaranteed resources
+              memory: "256Mi"
+              cpu: "100m"
+            limits:  # Maximum allowed resources
+              memory: "1Gi"
+              cpu: "500m"
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              valueFrom:
+                configMapKeyRef:
+                  name: project-service-config
+                  key: SPRING_PROFILES_ACTIVE
+            - name: SERVER_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: project-service-config
+                  key: SERVER_PORT
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: project-service-secret
+                  key: SPRING_DATASOURCE_USERNAME
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: project-service-secret
+                  key: SPRING_DATASOURCE_PASSWORD
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: project-service-secret
+                  key: SPRING_DATASOURCE_URL
+            - name: LOGGING_LEVEL_ROOT
+              valueFrom:
+                configMapKeyRef:
+                  name: project-service-config
+                  key: LOGGING_LEVEL_ROOT
+            - name: LOGGING_LEVEL_COM_PROJECTMANAGEMENT
+              valueFrom:
+                configMapKeyRef:
+                  name: project-service-config
+                  key: LOGGING_LEVEL_COM_PROJECTMANAGEMENT
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: project-service
+  namespace: projectmanagement
+spec:
+  selector:
+    app: project-service
+  ports:
+    - port: 8080
+      targetPort: 8080
+  type: NodePort

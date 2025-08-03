@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: flyway-migration
+  namespace: projectmanagement
+spec:
+  template:
+    spec:
+      containers:
+        - name: flyway
+          image: flyway/flyway:latest-alpine  # Lightweight Flyway CLI
+          command: ["flyway", "migrate"]
+          args:
+            - "-url=jdbc:mysql://mysql.projectmanagement.svc.cluster.local:3306/project_management" 
+            - "-user=myappuser"
+            - "-password=MyAppUserPass123"
+            - "-locations=filesystem:/flyway/sql"
+            - "-baselineOnMigrate=true" 
+            - "-connectRetries=60" 
+          volumeMounts:
+            - name: migrations
+              mountPath: /flyway/sql
+      volumes:
+        - name: migrations
+          configMap:
+            name: flyway-migrations
+      restartPolicy: Never

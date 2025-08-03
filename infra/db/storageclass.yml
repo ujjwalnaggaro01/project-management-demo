@@ -1,0 +1,10 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: pd-standard
+provisioner: pd.csi.storage.gke.io
+parameters:
+  type: pd-standard  # Standard HDD, cheaper and sufficient for small DBs
+reclaimPolicy: Delete  # Auto-delete PV when PVC is removed
+volumeBindingMode: Immediate  # Binds PVC immediately (matches your error mode)
+allowVolumeExpansion: true  # Allows future resizing if needed
