@@ -27,9 +27,11 @@ kubectl get pods -n projectmanagement
 
 
 
+$GIT_TAG = git rev-parse --short HEAD
+docker build -t project-service:$GIT_TAG .
+docker tag project-service:$GIT_TAG ujjwalraghuvanshi1212/project-service:$GIT_TAG
+docker push ujjwalraghuvanshi1212/project-service:$GIT_TAG
+kubectl set image deployment/project-service project-service=ujjwalraghuvanshi1212/project-service:f3e2537
 
 
-
-
-pvc-8e97697f-79a5-4fbf-a94e-ce5df5d0a9fa   1Gi        RWO            Delete           Bound    projectmanagement/mysql-data-mysql-0   pd-standard    <unset>                          20m
- kubectl delete all,configmaps,pvc,secrets,serviceaccounts,pv,storageclass --all -n projectmanagemen
+kubectl delete all,configmaps,pvc,secrets,serviceaccounts,pv,storageclass --all -n projectmanagement
