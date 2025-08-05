@@ -8,23 +8,23 @@ spring:
     name: project-management-service
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/project_management}
-    username: ${SPRING_DATASOURCE_USERNAME:root}
-    password: ${SPRING_DATASOURCE_PASSWORD:password}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
-      maximum-pool-size: 20
-      minimum-idle: 5
-      idle-timeout: 300000
-      max-lifetime: 600000
+      maximum-pool-size: ${HIKARI_MAX_POOL_SIZE:20}
+      minimum-idle: ${HIKARI_MIN_POOL_SIZE:5}
+      idle-timeout: ${HIKARI_IDLE_TIMEOUT:300000}
+      max-lifetime: ${HIKARI_MAX_LIFETIME:600000}
 
   jpa:
     hibernate:
-      ddl-auto: update
-    show-sql: true
+      ddl-auto: ${HIBERNATE_DDL_AUTO:validate}
+    show-sql: ${SHOW_SQL:true}
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
-        format_sql: true
+        format_sql: false
     open-in-view: false
 
   profiles:
@@ -36,3 +36,16 @@ logging:
     com.projectmanagement: ${LOGGING_LEVEL_COM_PROJECTMANAGEMENT:DEBUG}
     org.springframework.web: INFO
     org.hibernate.SQL: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: always
+  health:
+    db:
+      enabled: true

@@ -8,15 +8,24 @@ spec:
     spec:
       containers:
         - name: flyway
-          image: flyway/flyway:latest-alpine  # Lightweight Flyway CLI
+          image: flyway/flyway:latest-alpine
           command: ["flyway", "migrate"]
           args:
-            - "-url=jdbc:mysql://mysql.projectmanagement.svc.cluster.local:3306/project_management" 
-            - "-user=myappuser"
-            - "-password=MyAppUserPass123"
+            - "-url=jdbc:mysql://mysql.projectmanagement.svc.cluster.local:3306/project_management?allowPublicKeyRetrieval=true&useSSL=false" 
             - "-locations=filesystem:/flyway/sql"
             - "-baselineOnMigrate=true" 
             - "-connectRetries=60" 
+          env:
+            - name: FLYWAY_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: mysql-user
+            - name: FLYWAY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: mysql-password
           volumeMounts:
             - name: migrations
               mountPath: /flyway/sql
