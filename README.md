@@ -1,5 +1,23 @@
 
+
+## Project Quick Links
+
+- **Code Repository:**  
+  [https://github.com/ujjwalnaggaro01/project-management-demo](https://github.com/ujjwalnaggaro01/project-management-demo)
+
+- **Docker Images:**  
+  Available at Docker Hub:  
+  [ujjwalraghuvanshi1212/project-service](https://hub.docker.com/repository/docker/ujjwalraghuvanshi1212/project-service/tags/026fff9/sha256-a71dede364bd9e7ec24ac154a48c23fb90c75c6f10e1fd0960e9d96b929cce01)
+
+- **Service API Endpoint:**  
+  URL to access backend data and view records (replace `<EXTERNAL-IP>` with your Ingress IP or domain):  
+  `http://<EXTERNAL-IP>/api/v1/projects/pm/2`
+  
+  Example used in demo:  
+  [http://34.47.247.229/api/v1/projects/pm/2](http://34.47.247.229/api/v1/projects/pm/2)
+
 <h1>Project Management Service - Kubernetes Deployment Guide</h1>
+
 
 <p>This guide provides step-by-step instructions to deploy and manage the Project Management Service on a Kubernetes cluster. Each step is explained for clarity. You can copy-paste the commands as needed.</p>
 
