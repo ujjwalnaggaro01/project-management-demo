@@ -7,10 +7,7 @@
 
 <h2>1. Build and Push Docker Image (Windows)</h2>
 <p>Build a new Docker image after code changes, tag it, and push to Docker Hub. Replace <code>$GIT_TAG</code> with your git commit hash:</p>
-<pre><code>set GIT_TAG=git rev-parse --short HEAD
-docker build -t project-service:%GIT_TAG% .
-docker tag project-service:%GIT_TAG% ujjwalraghuvanshi1212/project-service:%GIT_TAG%
-docker push ujjwalraghuvanshi1212/project-service:%GIT_TAG%
+<pre><code>Double click on the docker-build.bat inside the folder
 </code></pre>
 <hr/>
 

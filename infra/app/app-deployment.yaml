@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: project-service
-          image: ujjwalraghuvanshi1212/project-service:v1.0
+          image: ujjwalraghuvanshi1212/project-service:026fff9
           ports:
             - containerPort: 8080
           imagePullPolicy: Always
