@@ -21,6 +21,33 @@
   [Demo](https://nagarro-my.sharepoint.com/:v:/p/ujjwal01/Ef1JQgmeDcdBuyc-AE9eG74BC_FAj6Y8nQL7WQeKBPn7NA?e=qjqMmV)
 
 
+
+## Run with Docker
+
+You can run the Project Management Service and a MySQL database using Docker containers for easy local development/testing.
+
+### 1. Build the Docker image
+If you haven't already built the image:
+```sh
+docker build -t project-service:latest .
+```
+
+### 2. Run MySQL with Docker
+```sh
+docker run --name mysql-local -e MYSQL_ROOT_PASSWORD=yourpassword -e MYSQL_DATABASE=projectmanagement -p 3306:3306 -d mysql:8.0
+```
+
+### 3. Run the application container
+```sh
+docker run --name project-service --link mysql-local:mysql -e SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/projectmanagement -e SPRING_DATASOURCE_USERNAME=root -e SPRING_DATASOURCE_PASSWORD=yourpassword -p 8080:8080 project-service:latest
+```
+
+> **Note:**
+> - Adjust environment variables as needed for your setup.
+> - The `--link` flag is for simple local testing. For production or advanced local setups, use Docker Compose or Kubernetes.
+
+---
+
 ## Local Setup Instructions
 
 To run and develop this project locally, follow these steps:
@@ -36,11 +63,11 @@ To run and develop this project locally, follow these steps:
    mvn clean install
    ```
 
+
 3. **Configure the database:**
-   - By default, the project uses MySQL. You can run MySQL locally using Docker:
-     ```sh
-     docker run --name mysql-local -e MYSQL_ROOT_PASSWORD=yourpassword -e MYSQL_DATABASE=projectmanagement -p 3306:3306 -d mysql:8.0
-     ```
+   - By default, the project uses MySQL. You can install and manage MySQL locally using [MySQL Workbench](https://dev.mysql.com/downloads/workbench/).
+   - Download and install MySQL Workbench and MySQL Server from the official site: [https://dev.mysql.com/downloads/](https://dev.mysql.com/downloads/)
+   - Create a database named `projectmanagement` and a user with appropriate privileges.
    - Update `src/main/resources/application.yml` with your local DB credentials if needed.
 
 4. **Run the application:**
