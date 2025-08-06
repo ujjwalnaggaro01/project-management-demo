@@ -20,6 +20,45 @@
   Recording:  
   [Demo](https://nagarro-my.sharepoint.com/:v:/p/ujjwal01/Ef1JQgmeDcdBuyc-AE9eG74BC_FAj6Y8nQL7WQeKBPn7NA?e=qjqMmV)
 
+
+## Local Setup Instructions
+
+To run and develop this project locally, follow these steps:
+
+1. **Clone the repository:**
+   ```sh
+   git clone https://github.com/ujjwalnaggaro01/project-management-demo.git
+   cd project-management-demo
+   ```
+
+2. **Build the project (requires Java 17+ and Maven):**
+   ```sh
+   mvn clean install
+   ```
+
+3. **Configure the database:**
+   - By default, the project uses MySQL. You can run MySQL locally using Docker:
+     ```sh
+     docker run --name mysql-local -e MYSQL_ROOT_PASSWORD=yourpassword -e MYSQL_DATABASE=projectmanagement -p 3306:3306 -d mysql:8.0
+     ```
+   - Update `src/main/resources/application.yml` with your local DB credentials if needed.
+
+4. **Run the application:**
+   ```sh
+   mvn spring-boot:run
+   ```
+   The service will start on [http://localhost:8080](http://localhost:8080) by default.
+
+5. **API Documentation:**
+   - You can enable Swagger/OpenAPI if needed and, visit [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html) for API docs.
+
+6. **Run tests:**
+   ```sh
+   mvn test
+   ```
+
+---
+
 <h1>Project Management Service - Kubernetes Deployment Guide</h1>
 
 
