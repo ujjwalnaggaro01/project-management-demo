@@ -16,6 +16,10 @@
   Example used in demo:  
   [http://34.47.247.229/api/v1/projects/pm/2](http://34.47.247.229/api/v1/projects/pm/2)
 
+- **Docker Images:**  
+  Recording:  
+  [Demo](https://nagarro-my.sharepoint.com/:v:/p/ujjwal01/Ef1JQgmeDcdBuyc-AE9eG74BC_FAj6Y8nQL7WQeKBPn7NA?e=qjqMmV)
+
 <h1>Project Management Service - Kubernetes Deployment Guide</h1>
 
 
